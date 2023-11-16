@@ -5,10 +5,9 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     [Header("MovementAttributes")]
-    public float speed;
-    [Range(0.0f, 100.0f)]
-    public float speedPercentage;
     [Range(0.0f, 1.0f)]
+    public float speed;
+    [Range(0.0f, 10.0f)]
     public float playerLead;
 
     [Header("MovementReferences")]
@@ -20,11 +19,12 @@ public class CameraMovement : MonoBehaviour
     {
         playerRb = player.GetComponent<Rigidbody2D>();
     }
-    private void Update()
+    private void FixedUpdate()
     {
         Vector2 startPosition = camera.position;
         Vector2 targetPosition = player.position;
 
-        
+        Vector2 newPosition = Vector2.Lerp(transform.position, targetPosition, speed);
+        transform.position = new Vector3(newPosition.x, newPosition.y, -10);
     }
 }

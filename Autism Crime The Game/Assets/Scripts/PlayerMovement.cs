@@ -25,8 +25,6 @@ public class PlayerMovement : MonoBehaviour
         playerRb.AddForce(movementAxis * speed); //Karaktere hız ver
         playerRb.velocity = Vector2.ClampMagnitude(playerRb.velocity, maxSpeed); //Karakterin hızını limitle
         if (movementAxis.magnitude == 0) { ApplyFriction(); }
-
-        Debug.Log(playerRb.velocity.magnitude);
     }
 
     private void ApplyFriction()

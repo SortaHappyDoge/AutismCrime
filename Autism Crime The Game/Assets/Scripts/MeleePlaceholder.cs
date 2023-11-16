@@ -14,7 +14,7 @@ public class MeleePlaceholder : MonoBehaviour
 
     [Header("MeleeReferences")]
     public Collider2D attackCollider;
-    List<Collider2D> enemiesInRange = new List<Collider2D>();
+    public List<Collider2D> enemiesInRange = new List<Collider2D>();
 
     private void Start()
     {

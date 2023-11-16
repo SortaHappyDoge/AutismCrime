@@ -11,6 +11,6 @@ public class ItemManager : MonoBehaviour
     private void Update()
     {
         if(holdedItem != null && onClick == 1) { holdedItem.SendMessage("ClickMessage"); }
-        else if(holdedItem != null) { holdedItem.SendMessage("NotClickedMessage"); }
+        //else if(holdedItem != null) { holdedItem.SendMessage("NotClickedMessage"); }
     }
 }

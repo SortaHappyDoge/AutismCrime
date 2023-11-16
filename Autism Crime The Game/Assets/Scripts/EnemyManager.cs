@@ -8,6 +8,8 @@ public class EnemyManager : MonoBehaviour
     public float health;
     float bleedSpeed;
     float totalBleed;
+    public bool isStunned;
+    float stunTime;
 
     [Header("Enemy References")]
     ItemManager itemManager;
@@ -18,17 +20,18 @@ public class EnemyManager : MonoBehaviour
     {
         if (transform.GetComponent<ItemManager>()) { itemManager = transform.GetComponent<ItemManager>(); }
     }
+    private void Update()
+    {
+        if (totalBleed > 0) { health -= bleedSpeed; totalBleed -= bleedSpeed; }
+        if (stunTime > 0) { isStunned = true; } else { isStunned = false; }
+    }
 
     public void GetMeleed(Vector2 attackPosition, float damage, float stun, float knockback, float bleed)
     {
-        CalculateKnockback(attackPosition, knockback);
-        totalBleed = bleed;
-
-    }
-
-    public void CalculateDamage()
-    {
-        
+        CalculateKnockback(attackPosition, knockback); //Knockback hesaplama ve uygulama
+        totalBleed = bleed; //Bleed ekleme
+        health -= damage; //Hasar verme
+        stunTime = stun; //Stun
     }
 
     public void CalculateKnockback(Vector2 attackPosition, float knockback)

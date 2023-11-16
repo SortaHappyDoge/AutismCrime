@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public float maxSpeed;
     [Range(0.0f, 1.0f)]
     public float frictionMultiplier;
+    Vector3 mouseScreenPosition, mouseWorldPosition;
 
     [Header("MovementReferences")]
     public Transform player;
@@ -22,9 +23,21 @@ public class PlayerMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        //Karakter hareketi
         playerRb.AddForce(movementAxis * speed); //Karaktere hız ver
         playerRb.velocity = Vector2.ClampMagnitude(playerRb.velocity, maxSpeed); //Karakterin hızını limitle
         if (movementAxis.magnitude == 0) { ApplyFriction(); }
+        //
+
+        //Karakter rotasyonu
+        mouseScreenPosition = Input.mousePosition;
+        Ray ray = Camera.main.ScreenPointToRay(mouseScreenPosition);
+        if(Physics.Raycast(ray, out RaycastHit hitData)) 
+        {
+            transform.rotation = Quaternion.LookRotation(Vector3.forward, new Vector3(hitData.point.x - transform.position.x, hitData.point.y - transform.position.y, hitData.point.z - transform.position.z).normalized);
+            transform.rotation.eulerAngles.Set(0,0, transform.rotation.eulerAngles.z);
+        }
+        //
     }
 
     private void ApplyFriction()

@@ -11,6 +11,7 @@ public class MeleePlaceholder : MonoBehaviour
     public float knockback;
     public float bleed;
     float currentFatigue;
+    public bool isEnabled;
 
     [Header("MeleeReferences")]
     public Collider2D attackCollider;

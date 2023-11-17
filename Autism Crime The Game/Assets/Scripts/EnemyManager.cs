@@ -8,15 +8,18 @@ public class EnemyManager : MonoBehaviour
     public float health;
     public bool isStunned;
     [Range(1f, 100)]
-    public float minimumAmmoDrop; //maximumAmmoDrop ile eşit veya daha küçük olmalı
+    public int minimumAmmoDrop; //maximumAmmoDrop ile eşit veya daha küçük olmalı
     [Range(1f, 100)]
-    public float maximumAmmoDrop; //minimumAmmoDrop ile eşit veya daha büyük olmalı
+    public int maximumAmmoDrop; //minimumAmmoDrop ile eşit veya daha büyük olmalı
+    [Range(0f, 100f)]
+    public int ammoDropPercentage;
     float stunTime;
     float bleedSpeed;
     float totalBleed;
 
     [Header("EnemyReferences")]
     public Transform player;
+    public GameObject ammoPrefab;
     ItemManager itemManager;
 
     private void Start()
@@ -27,7 +30,17 @@ public class EnemyManager : MonoBehaviour
     {
         if (totalBleed > 0) { health -= bleedSpeed; totalBleed -= bleedSpeed; }
         if (stunTime > 0) { isStunned = true; } else { isStunned = false; }
-        if (health <= 0) { Destroy(gameObject); }
+        if (health <= 0) 
+        { 
+            if(Random.Range(0, 100) <= ammoDropPercentage)
+            {
+                for (int i = Random.Range(minimumAmmoDrop, maximumAmmoDrop); i>0; i--)
+                {
+                    Instantiate(ammoPrefab, transform.position, transform.rotation);
+                }
+            }
+            Destroy(gameObject); 
+        }
 
         //Düşmanı Karaktere Çevir
         transform.rotation = Quaternion.LookRotation(Vector3.forward, new Vector3(player.position.x - transform.position.x, player.position.y - transform.position.y, player.position.z - transform.position.z).normalized);

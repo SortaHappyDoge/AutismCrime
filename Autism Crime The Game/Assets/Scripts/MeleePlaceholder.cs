@@ -21,9 +21,9 @@ public class MeleePlaceholder : MonoBehaviour
     {
         attackCollider = transform.GetComponent<Collider2D>();
     }
-    private void Update()
+    private void FixedUpdate()
     {
-        currentFatigue -= Time.deltaTime;
+        currentFatigue -= Time.fixedDeltaTime;
     }
 
     public void ClickMessage()

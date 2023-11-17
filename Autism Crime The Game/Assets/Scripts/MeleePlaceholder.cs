@@ -28,6 +28,7 @@ public class MeleePlaceholder : MonoBehaviour
 
     public void ClickMessage()
     {
+        if(!isEnabled) { return; }
         SwingMelee();
     }
 

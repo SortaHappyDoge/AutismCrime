@@ -8,9 +8,8 @@ public class ItemManager : MonoBehaviour
     public Transform holdedItem;
     public float onClick;
 
-    private void Update()
+    private void FixedUpdate()
     {
         if(holdedItem != null && onClick == 1) { holdedItem.SendMessage("ClickMessage"); }
-        //else if(holdedItem != null) { holdedItem.SendMessage("NotClickedMessage"); }
     }
 }

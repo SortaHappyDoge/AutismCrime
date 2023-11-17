@@ -14,21 +14,15 @@ public class ProjectilePlaceholder : MonoBehaviour
     //[Header("GunReferences")]
     
 
-    void Update()
+    void FixedUpdate()
     {
-        //transform.position += transform.forward * Time.deltaTime * speed;
-        transform.Translate(new Vector3(0,1,0)*speed*Time.deltaTime);
-        lifeTime -= Time.deltaTime;
+        transform.Translate(new Vector3(0,1,0)*speed*Time.fixedDeltaTime);
+        lifeTime -= Time.fixedDeltaTime;
         if (lifeTime < 0) { Destroy(gameObject); }
     }
 
-    /*private void OnCollisionEnter2D(Collision2D collision)
-    {
-        
-    }*/
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("collided" + " "+ collision.transform.name);
         collision.transform.GetComponent<EnemyManager>().GetHit(damage, knockback, stun, transform.position);
         Destroy(gameObject);
     }

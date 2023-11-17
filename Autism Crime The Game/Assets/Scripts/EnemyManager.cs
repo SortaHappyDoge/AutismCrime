@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    [Header("Enemy Attributes")]
+    [Header("EnemyAttributes")]
     public float health;
+    public bool isStunned;
+    [Range(1f, 100)]
+    public float minimumAmmoDrop; //maximumAmmoDrop ile eşit veya daha küçük olmalı
+    [Range(1f, 100)]
+    public float maximumAmmoDrop; //minimumAmmoDrop ile eşit veya daha büyük olmalı
+    float stunTime;
     float bleedSpeed;
     float totalBleed;
-    public bool isStunned;
-    float stunTime;
 
-    [Header("Enemy References")]
-    ItemManager itemManager;
+    [Header("EnemyReferences")]
     public Transform player;
-
+    ItemManager itemManager;
 
     private void Start()
     {

@@ -9,7 +9,6 @@ public class StartMenuUI : MonoBehaviour
 {
     [Header("UIAttributes")]
     public float blackoutSpeed;
-    float currentAlpha = 0;
     bool blackOut = false;
     Color tempColor = new Color(0, 0, 0, 0);
 
@@ -23,7 +22,6 @@ public class StartMenuUI : MonoBehaviour
         {
             tempColor.a += blackoutSpeed * Time.fixedDeltaTime;
             uIBlackout.color = tempColor;
-            Debug.Log(uIBlackout.color.a);
             if(uIBlackout.color.a < 1) { return; }
             blackOut = false;
             SceneManager.LoadScene(firstScene);

@@ -36,10 +36,11 @@ public class EnemyManager : MonoBehaviour
             {
                 for (int i = Random.Range(minimumAmmoDrop, maximumAmmoDrop); i>0; i--)
                 {
-                    Instantiate(ammoPrefab, transform.position, transform.rotation);
+                    GameObject ammo = Instantiate(ammoPrefab, transform.position, transform.rotation);
+                    ammo.transform.SetParent(null, true);
                 }
             }
-            Destroy(gameObject); 
+            Destroy(transform.parent.gameObject);
         }
 
         //Düşmanı Karaktere Çevir
@@ -69,18 +70,4 @@ public class EnemyManager : MonoBehaviour
         health -= damage;
         if(stunTime < stun) { stunTime = stun; }
     }
-
-    //Kullanılmıyo/Çalışmıyo
-
-    /*private IEnumerator ApplyKnockback(Vector3 knockbackCalculation, float knockbackTime)
-    {
-        float timeLeft = 0.01f;
-        while (timeLeft<knockbackTime)
-        {
-            Debug.Log(timeLeft/knockbackTime);
-            transform.position = Vector3.Lerp(knockbackCalculation, transform.position, 0.99f);
-            timeLeft += Time.deltaTime;
-            yield return null;
-        }
-    }*/
 }

@@ -12,7 +12,6 @@ public class CameraMovement : MonoBehaviour
 
     [Header("MovementReferences")]
     public Transform player;
-    public Transform camera;
     public Rigidbody2D playerRb;
 
     private void Start()
@@ -21,7 +20,7 @@ public class CameraMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        Vector2 startPosition = camera.position;
+        Vector2 startPosition = transform.position;
         Vector2 targetPosition = player.position;
 
         Vector2 newPosition = Vector2.Lerp(transform.position, targetPosition, speed);

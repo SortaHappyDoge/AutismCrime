@@ -23,6 +23,7 @@ public class ProjectilePlaceholder : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if(LayerMask.LayerToName(collision.gameObject.layer) == "Environment") { Destroy(gameObject); }
         collision.transform.GetComponent<EnemyManager>().GetHit(damage, knockback, stun, transform.position);
         Destroy(gameObject);
     }

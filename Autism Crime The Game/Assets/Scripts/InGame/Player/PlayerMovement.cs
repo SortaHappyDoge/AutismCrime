@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody2D playerRb;
     public Vector2 movementAxis;
     public float minimumSpeedClampingLimit;
+    public Animator animator;
 
     private void Start()
     {
@@ -37,6 +38,11 @@ public class PlayerMovement : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(Vector3.forward, new Vector3(hitData.point.x - transform.position.x, hitData.point.y - transform.position.y, hitData.point.z - transform.position.z).normalized);
             transform.rotation.eulerAngles.Set(0,0, transform.rotation.eulerAngles.z);
         }
+        //
+
+        //Animasyonlar
+        animator.SetFloat("X", movementAxis.x);
+        animator.SetFloat("Y", movementAxis.y);
         //
     }
 

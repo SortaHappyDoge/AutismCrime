@@ -148,7 +148,7 @@ MonoBehaviour:
   speed: 5
   lifeTime: 3
   stun: 0
-  knockback: 1
+  knockback: 5
 --- !u!50 &6385532624208472214
 Rigidbody2D:
   serializedVersion: 4

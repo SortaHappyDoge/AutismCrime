@@ -13,9 +13,13 @@ public class EnemyManager : MonoBehaviour
     public int maximumAmmoDrop; //minimumAmmoDrop ile eşit veya daha büyük olmalı
     [Range(0f, 100f)]
     public int ammoDropPercentage;
+    public float knockSpeed;
     float stunTime;
     float bleedSpeed;
     float totalBleed;
+    bool gettingKnocked;
+    float knockTimer;
+    Vector3 knockPos;
 
     [Header("EnemyReferences")]
     public Transform player;
@@ -29,7 +33,7 @@ public class EnemyManager : MonoBehaviour
     private void Update()
     {
         if (totalBleed > 0) { health -= bleedSpeed; totalBleed -= bleedSpeed; }
-        if (stunTime > 0) { isStunned = true; } else { isStunned = false; }
+        if (stunTime > 0) { isStunned = true; stunTime -= Time.deltaTime; } else { isStunned = false; }
         if (health <= 0) 
         { 
             if(Random.Range(0, 100) <= ammoDropPercentage)
@@ -42,7 +46,17 @@ public class EnemyManager : MonoBehaviour
             }
             Destroy(transform.parent.gameObject);
         }
-
+        if (gettingKnocked) 
+        {
+            transform.position = new Vector3(
+            Mathf.Lerp(transform.position.x, knockPos.x, knockSpeed*Time.deltaTime),
+            Mathf.Lerp(transform.position.y, knockPos.y, knockSpeed*Time.deltaTime),
+            transform.position.z
+            );
+            
+            knockTimer -= Time.deltaTime;
+            if (knockTimer<=0) { gettingKnocked = false; }
+        }
         //Düşmanı Karaktere Çevir
         transform.rotation = Quaternion.LookRotation(Vector3.forward, new Vector3(player.position.x - transform.position.x, player.position.y - transform.position.y, player.position.z - transform.position.z).normalized);
         transform.rotation.eulerAngles.Set(0, 0, transform.rotation.eulerAngles.z);
@@ -61,7 +75,11 @@ public class EnemyManager : MonoBehaviour
     {
         Vector2 difference = new Vector2(attackPosition.x - transform.position.x, attackPosition.y - transform.position.y).normalized * -knockback;
         Vector3 knockbackCalculation = new Vector3(transform.position.x + difference.x, transform.position.y + difference.y, transform.position.z);
-        transform.position = knockbackCalculation;
+        knockPos = knockbackCalculation;
+        gettingKnocked = true;
+        knockTimer = 0.1f;
+        if(stunTime<knockTimer) { stunTime = knockTimer; }
+        isStunned = true;
     }
 
     public void GetHit(float damage, float knockback, float stun, Vector3 attackPosition)

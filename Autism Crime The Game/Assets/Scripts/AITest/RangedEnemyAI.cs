@@ -12,11 +12,12 @@ public class RangedEnemyAI : MonoBehaviour
     float distanceToTarget;
     float lastX;
     float lastY;
+    //Ray2D ray;
 
     [Header("AIReferences")]
     public Transform player;
     public Animator animator;
-    public GunPlaceholder weapon;
+    public Transform weapon;
     NavMeshAgent agent;
 
     private void Start()
@@ -35,7 +36,11 @@ public class RangedEnemyAI : MonoBehaviour
         target.position.y - transform.position.y
         ).magnitude;
         //
-        if (distanceToTarget < shootDistance)
+
+        //ray = new Ray2D(transform.position, transform.position - target.position);
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, (target.position-transform.position).normalized, Mathf.Infinity, 1 << 9 | 1 << 11);
+        if (distanceToTarget < shootDistance && hit.transform.CompareTag("Player"))
         {
             weapon.SendMessage("ClickMessage");
             agent.isStopped = true;
@@ -43,11 +48,15 @@ public class RangedEnemyAI : MonoBehaviour
         else { agent.isStopped = false; }
 
 
-        //Animasyon
-        if (lastX - transform.position.x < lastY - transform.position.y && lastX > transform.position.x) { animator.SetFloat("X", -1); animator.SetFloat("Y", 0); }
-        if (lastX - transform.position.x > lastY - transform.position.y && lastY > transform.position.y) { animator.SetFloat("X", 0); animator.SetFloat("Y", -1); }
-        if (lastX - transform.position.x < lastY - transform.position.y && lastX < transform.position.x) { animator.SetFloat("X", 1); animator.SetFloat("Y", 0); }
-        if (lastX - transform.position.x > lastY - transform.position.y && lastY < transform.position.y) { animator.SetFloat("X", 0); animator.SetFloat("Y", 1); }
+        //Animasyon 
+        if (animator != null)
+        {
+            if (lastX - transform.position.x < lastY - transform.position.y && lastX > transform.position.x) { animator.SetFloat("X", -1); animator.SetFloat("Y", 0); }
+            if (lastX - transform.position.x > lastY - transform.position.y && lastY > transform.position.y) { animator.SetFloat("X", 0); animator.SetFloat("Y", -1); }
+            if (lastX - transform.position.x < lastY - transform.position.y && lastX < transform.position.x) { animator.SetFloat("X", 1); animator.SetFloat("Y", 0); }
+            if (lastX - transform.position.x > lastY - transform.position.y && lastY < transform.position.y) { animator.SetFloat("X", 0); animator.SetFloat("Y", 1); }
+            if (lastX - transform.position.x == 0 && lastY - transform.position.y == 0) { animator.SetFloat("X", 0); animator.SetFloat("Y", 0); }
+        }
         //
 
         agent.SetDestination(target.position);

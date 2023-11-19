@@ -16,14 +16,17 @@ public class EnemyMelee : MonoBehaviour
     [Header("MeleeReferences")]
     public Collider2D attackCollider;
     public Transform player;
+    StaminaBar staminaBar;
 
     private void Start()
     {
         attackCollider = transform.GetComponent<Collider2D>();
+        staminaBar = GetComponent<StaminaBar>();
     }
     private void FixedUpdate()
     {
         currentFatigue -= Time.fixedDeltaTime;
+        staminaBar.StaminaRemap(currentFatigue, 0, attackSpeed);
     }
 
     public void ClickMessage()

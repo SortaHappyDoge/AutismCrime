@@ -13,18 +13,18 @@ public class GunPlaceholder : MonoBehaviour
     public GameObject projectile;
     public Transform projectileOrigin;
     ItemManager itemManager;
+    StaminaBar staminaBar;
 
     private void Start()
     {
         itemManager = GetComponentInParent<ItemManager>();
+        staminaBar = GetComponent<StaminaBar>();
     }
-    /*private void Update()
-    {
-        currentCooldown -= Time.deltaTime;
-    }*/
+    
     private void FixedUpdate()
     {
         currentCooldown -= Time.fixedDeltaTime;
+        staminaBar.StaminaRemap(currentCooldown, 0, rateOfFire);
     }
 
     public void ClickMessage()
@@ -35,9 +35,9 @@ public class GunPlaceholder : MonoBehaviour
 
     public void Shoot()
     {
-        //if(currentCooldown>0 || itemManager.ammo <= 0) { return; }
+        if(currentCooldown>0 || itemManager.ammo <= 0) { return; }
         Instantiate(projectile, projectileOrigin.position, projectileOrigin.rotation);
-        //itemManager.ammo -= 1;
+        itemManager.ammo -= 1;
         currentCooldown = rateOfFire;
     }
 }

@@ -16,14 +16,17 @@ public class MeleePlaceholder : MonoBehaviour
     [Header("MeleeReferences")]
     public Collider2D attackCollider;
     public List<Collider2D> enemiesInRange = new List<Collider2D>();
+    StaminaBar staminaBar;
 
     private void Start()
     {
         attackCollider = transform.GetComponent<Collider2D>();
+        staminaBar = GetComponent<StaminaBar>();
     }
     private void FixedUpdate()
     {
         currentFatigue -= Time.fixedDeltaTime;
+        staminaBar.StaminaRemap(currentFatigue, 0, attackSpeed);
     }
 
     public void ClickMessage()

@@ -23,4 +23,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BoxingRing.unity
     guid: b359a16a782fa4a408e7c4d7408466de
+  - enabled: 1
+    path: Assets/Scenes/IntroScene.unity
+    guid: b3f8a1aecee2f104f9db262bbeed70cb
+  - enabled: 1
+    path: Assets/Outro Pages/OutroScene.unity
+    guid: 4622327c0749df248a2cc164885d6046
   m_configObjects: {}

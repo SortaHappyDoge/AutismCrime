@@ -13,11 +13,13 @@ public class EnemyGun : MonoBehaviour
     public GameObject projectile;
     public Transform projectileOrigin;
     StaminaBar staminaBar;
+    AudioSource shoot;
 
     private void Start()
     {
         currentCooldown = rateOfFire;
         staminaBar = GetComponent<StaminaBar>();
+        shoot = GetComponent<AudioSource>();
     }
     private void FixedUpdate()
     {
@@ -34,6 +36,7 @@ public class EnemyGun : MonoBehaviour
     public void Shoot()
     {
         if (currentCooldown > 0) { return; }
+        shoot.Play();
         Instantiate(projectile, projectileOrigin.position, projectileOrigin.rotation);
         currentCooldown = rateOfFire;
     }

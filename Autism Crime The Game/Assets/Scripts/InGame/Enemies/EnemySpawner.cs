@@ -17,19 +17,33 @@ public class EnemySpawner : MonoBehaviour
     public bool spawnEnemies = true;
     public float closestSpawn;
     public string nextMap;
+    public bool spawnBoss = false;
 
     [Header("SpawnerReferences")]
     public Transform player;
     public GameObject meleeEnemy;
     public GameObject rangedEnemy;
+    public GameObject boss;
 
     private void Update()
     {
         enemies.RemoveAll(s => s == null);
-
+        
         _ = spawnWaveCount <= 0 ? spawnEnemies = false : spawnEnemies = true;
+        
+        
+        if(enemies.Count == 0 && spawnWaveCount == 0 && boss == null) { SceneManager.LoadScene(nextMap); }
+
         if (waitForClearance && enemies.Count > 0 && spawnWaveCount > 0 || !spawnEnemies) { return; }
         
+        /*if(spawnWaveCount == 1 && spawnBoss) {
+            spawnBoss = false;
+            GameObject bos = Instantiate(boss, GetRandomPos(), Quaternion.identity);
+            bos.GetComponentInChildren<RangedEnemyAI>().target = player;
+            bos.GetComponentInChildren<EnemyManager>().player = player;
+            enemies.Add(bos);
+            "
+        }*/
         for(int i = spawnWavePower;  i>0; i--)
         {
             if (Random.Range(0, 100) > rangedChance) 
@@ -50,11 +64,9 @@ public class EnemySpawner : MonoBehaviour
                 if ((enemy.transform.position - player.position).magnitude < closestSpawn) { ++i; Destroy(enemy); }
             }
         }
-        if(spawnWaveCount <= 0)
-        {
-            SceneManager.LoadScene(nextMap);
-        }
+        
         --spawnWaveCount;
+        
     }
 
     public Vector2 GetRandomPos()

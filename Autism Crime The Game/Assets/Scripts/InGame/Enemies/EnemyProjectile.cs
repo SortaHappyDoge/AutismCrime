@@ -11,7 +11,8 @@ public class EnemyProjectile : MonoBehaviour
     public float stun;
     public float knockback;
 
-    //[Header("GunReferences")]
+    [Header("ProjectileReferences")]
+    AudioSource graze;
 
 
     void FixedUpdate()

@@ -17,11 +17,13 @@ public class EnemyMelee : MonoBehaviour
     public Collider2D attackCollider;
     public Transform player;
     StaminaBar staminaBar;
+    AudioSource swing;
 
     private void Start()
     {
         attackCollider = transform.GetComponent<Collider2D>();
         staminaBar = GetComponent<StaminaBar>();
+        swing = GetComponent<AudioSource>();
     }
     private void FixedUpdate()
     {
@@ -39,7 +41,7 @@ public class EnemyMelee : MonoBehaviour
     {
         if (currentFatigue > 0) { return; }
         player.transform.GetComponent<PlayerManager>().GetMeleed(transform.position, damage, stun, knockback, bleed);
-
+        swing.Play();
         currentFatigue = attackSpeed;
     }
 

@@ -12,13 +12,16 @@ public class GunPlaceholder : MonoBehaviour
     [Header("GunReferences")]
     public GameObject projectile;
     public Transform projectileOrigin;
+    public AudioSource shoot;
     ItemManager itemManager;
     StaminaBar staminaBar;
+    
 
     private void Start()
     {
         itemManager = GetComponentInParent<ItemManager>();
         staminaBar = GetComponent<StaminaBar>();
+        
     }
     
     private void FixedUpdate()
@@ -36,6 +39,7 @@ public class GunPlaceholder : MonoBehaviour
     public void Shoot()
     {
         if(currentCooldown>0 || itemManager.ammo <= 0) { return; }
+        shoot.Play();
         Instantiate(projectile, projectileOrigin.position, projectileOrigin.rotation);
         itemManager.ammo -= 1;
         currentCooldown = rateOfFire;

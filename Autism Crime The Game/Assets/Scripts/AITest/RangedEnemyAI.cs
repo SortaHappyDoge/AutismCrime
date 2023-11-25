@@ -9,6 +9,7 @@ public class RangedEnemyAI : MonoBehaviour
     public Transform target; //Karakterimiz
     public bool isStunned;
     public float shootDistance;
+    public bool stunAble = true;
     float distanceToTarget;
     float lastX;
     float lastY;
@@ -28,7 +29,7 @@ public class RangedEnemyAI : MonoBehaviour
     private void Update()
     {
         isStunned = GetComponent<EnemyManager>().isStunned;
-        if (isStunned) { agent.isStopped = true; animator.SetFloat("X", 0); animator.SetFloat("Y", 0); return; }
+        if (isStunned && stunAble) { agent.isStopped = true; animator.SetFloat("X", 0); animator.SetFloat("Y", 0); return; }
 
         //Karakterimize uzaklığı bul
         distanceToTarget = new Vector2(

@@ -323,6 +323,7 @@ GameObject:
   - component: {fileID: 1307746530822627848}
   - component: {fileID: 5106962210192895804}
   - component: {fileID: 6613731298733558769}
+  - component: {fileID: 8793703976279621910}
   m_Layer: 0
   m_Name: EnemyGun
   m_TagString: Untagged
@@ -432,6 +433,102 @@ MonoBehaviour:
   background: {fileID: 3599177791572960716}
   bar: {fileID: 1840537316249256238}
   maxBarSize: 0.33
+--- !u!82 &8793703976279621910
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8719440735988752569}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: a143ceb55d860f345b978246edac42eb, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.3
+  m_Pitch: 0.3
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &2607087818129458621
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -480,6 +577,10 @@ PrefabInstance:
       propertyPath: sprite
       value: 
       objectReference: {fileID: 453522679239890507, guid: af06778499d8d5a4593669dbe41d77f1, type: 3}
+    - target: {fileID: 4393657159155959434, guid: 3f7cfb362f1291146ba8351251ed4c85, type: 3}
+      propertyPath: ammoPrefab
+      value: 
+      objectReference: {fileID: 7807226943007117502, guid: 96298d7aea5a1ba4eb8a0be13ac21fef, type: 3}
     - target: {fileID: 4393657159155959434, guid: 3f7cfb362f1291146ba8351251ed4c85, type: 3}
       propertyPath: knockSpeed
       value: 10
@@ -611,6 +712,7 @@ MonoBehaviour:
   target: {fileID: 0}
   isStunned: 0
   shootDistance: 10
+  stunAble: 1
   player: {fileID: 0}
   animator: {fileID: 7076277921043468951}
   weapon: {fileID: 3637908679185306595}

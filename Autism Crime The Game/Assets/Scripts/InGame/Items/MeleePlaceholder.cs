@@ -17,11 +17,13 @@ public class MeleePlaceholder : MonoBehaviour
     public Collider2D attackCollider;
     public List<Collider2D> enemiesInRange = new List<Collider2D>();
     StaminaBar staminaBar;
+    AudioSource swing;
 
     private void Start()
     {
         attackCollider = transform.GetComponent<Collider2D>();
         staminaBar = GetComponent<StaminaBar>();
+        swing = GetComponent<AudioSource>();
     }
     private void FixedUpdate()
     {
@@ -38,6 +40,7 @@ public class MeleePlaceholder : MonoBehaviour
     public void SwingMelee()
     {
         if(currentFatigue > 0) { return; }
+        swing.Play();
         foreach(Collider2D enemy in enemiesInRange)
         {
             enemy.transform.GetComponent<EnemyManager>().GetMeleed(transform.position, damage, stun, knockback, bleed);
